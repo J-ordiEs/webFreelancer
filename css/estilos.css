@@ -1,16 +1,17 @@
 :root {
   --blanco: #ffffff;
-  --oscuro: #212121;
-  --primario: #ffc107;
+  --oscuro: #000000f;
+  --primario: rgba(255, 193, 7, 1);
   --secundario: #0097a7;
   --gris: #757575;
   --grisClaro: #dfe9f3;
 }
 
 /*Globales*/
+
 html {
   font-size: 62.5%;
-  box-sizing: border-box;
+  box-sizing: border-box; /*Hack para Box Model*/
 }
 @media (min-width: 768px) {
   html {
@@ -18,7 +19,8 @@ html {
   }
 }
 
-.servicios,
+/** Sceroll Snap**/
+.servicio,
 .navegacion-principal,
 .formulario {
   scroll-snap-align: center;
@@ -30,22 +32,29 @@ html {
 *:after {
   box-sizing: inherit;
 }
+/*el * toma todos los elementos del css*/
+/*after y before es un seudoelemento que no deja marcarce*/
 
 body {
-  font-size: 16px;
+  font-size: 16px; /* 1rem = 10px*/
   font-family: "Krub", sans-serif;
   background-image: linear-gradient(
     to top,
     var(--grisClaro) 0%,
-    var(--blanco) 100%
+    VAR(--blanco) 100%
   );
 }
-
 .contenedor {
   max-width: 120rem;
-  margin: 0 auto;
-}
+  /*  margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    
+    margin: 0 auto; puede ser de las 3 formas */
 
+  margin: 0 auto 0 auto;
+}
 .boton {
   background-color: var(--secundario);
   color: var(--blanco);
@@ -56,27 +65,28 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   border-radius: 0.5rem;
-  width: 80%;
+  width: 90%;
   text-align: center;
   border: none;
 }
-.boton:hover {
-  background-color: var(--primario);
-  color: var(--oscuro);
-  cursor: pointer;
-}
-@media (min-width: 768px) {
+@media (min-width: 480px) {
   .boton {
     width: auto;
   }
 }
+.boton:hover {
+  cursor: pointer;
+}
 
 .sombra {
-  box-shadow: 0px 5px 15px 5px rgba(112, 112, 112, 0.48);
+  -webkit-box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.48);
+  -moz-box-shado: 0px 5px 15px 0px rgba(112, 112, 112, 0.48);
+  box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.48);
   background-color: var(--blanco);
   padding: 2rem;
-  border-radius: 1rem;
+  border-radius: 2rem;
 }
+/* Tipografia*/
 
 h1 {
   font-size: 3.8rem;
@@ -87,41 +97,39 @@ h2 {
 h3 {
   font-size: 1.8rem;
 }
-
 h1,
 h2,
 h3 {
   text-align: center;
 }
 
+/*titulos*/
+
 .titulo span {
   font-size: 2rem;
 }
-
 /** Utilidades **/
 
 .w-sm-100 {
   width: 100%;
 }
-
 @media (min-width: 768px) {
   .w-sm-100 {
     width: auto;
   }
 }
-
+.flex {
+  display: flex;
+}
 .alinear-derecha {
   justify-content: flex-end;
 }
 
-.flex {
-  display: flex;
-}
+/*navegacion-Principal*/
 
 .nav-bg {
   background-color: var(--secundario);
 }
-
 .navegacion-principal {
   display: flex;
   flex-direction: column;
@@ -133,7 +141,6 @@ h3 {
     justify-content: space-between;
   }
 }
-
 .navegacion-principal a {
   display: block;
   text-align: center;
@@ -143,14 +150,16 @@ h3 {
   font-weight: 700;
   padding: 1rem;
 }
-
 .navegacion-principal a:hover {
   background-color: var(--primario);
   color: var(--oscuro);
 }
+/*si quieres modificar las posiciones el padre tiene que llevar position:relative*/
 
+/*Hero*/
 .hero {
   background-image: url(/img/hero.jpg);
+  /*para salirse de una carpeta se usa ".." y luego se ingresa a la que se necesita*/
   background-repeat: no-repeat;
   background-size: cover;
   height: 450px;
@@ -160,25 +169,33 @@ h3 {
 
 .contenido-hero {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.7); /**anterior**/
-  background-color: rgba(0 0 0 / 70%);
+  /*background-color: rgba(0,0,0,  .6);/*anterior*/
+  background-color: rgb(0 0 0 / 70%);
   width: 100%;
   height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 .contenido-hero h2,
-.contenido-hero p {
+.contenido-hero P {
   color: var(--blanco);
 }
+.contenido-hero.ubicacion {
+  display: flex;
+  align-items: flex-end;
+}
+
+/*Servicio*/
 
 @media (min-width: 768px) {
   .servicios {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /*fr es igual a fracciones (33.3)*/
+    /*version corta
+        grid: 200px 800px / 300px 300px; */
     column-gap: 1rem;
   }
 }
@@ -188,12 +205,10 @@ h3 {
   flex-direction: column;
   align-items: center;
 }
-
 .servicio h3 {
   color: var(--secundario);
   font-weight: normal;
 }
-
 .servicio p {
   line-height: 2;
   text-align: center;
@@ -208,13 +223,16 @@ h3 {
   align-items: center;
 }
 
+/*Contacto*/
+
 .formulario {
   background-color: var(--gris);
-  width: min(60rem, 100%);
-  margin: auto;
+  width: min(60rem, 100%); /*utiliza el valor mas pequeño*/
+  margin: 0 auto; /*se utiliza en un elemento cuyo padre no es un display flex*/
   padding: 2rem;
   border-radius: 1rem;
 }
+
 .formulario fieldset {
   border: none;
 }
@@ -222,8 +240,8 @@ h3 {
 .formulario legend {
   text-align: center;
   font-size: 1.8rem;
-  text-transform: uppercase;
-  font-weight: 700;
+  text-transform: uppercase; /*mayusculas*/
+  font-weight: 700; /*negrita*/
   margin-bottom: 2rem;
   color: var(--primario);
 }
@@ -231,7 +249,7 @@ h3 {
 @media (min-width: 768px) {
   .contenedor-campos {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto auto 20rem;
     column-gap: 1rem;
   }
@@ -244,7 +262,6 @@ h3 {
 .campo {
   margin-bottom: 1rem;
 }
-
 .campo label {
   color: var(--blanco);
   font-weight: bold;
@@ -252,17 +269,18 @@ h3 {
   display: block;
 }
 
-.campo textarea {
-  height: 20rem;
-}
-
 .input-text {
   width: 100%;
   border: none;
   padding: 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 1.5rem;
+}
+
+.campo textarea {
+  height: 18rem;
 }
 
 .footer {
   text-align: center;
+  font-size: small;
 }
